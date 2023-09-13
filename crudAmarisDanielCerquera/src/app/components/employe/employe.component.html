@@ -1,0 +1,113 @@
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h2>Empleados</h2>
+                    </div>
+                    <div class="col-sm-4" [formGroup]="formEmployeId">
+
+                        <div class="search-box">
+                            <div class="input-group">
+                                <input class="form-control border-end-0 border" type="search" value="Consultar por ID" id="search-input" formControlName="idFind">
+                                <span class="input-group-append">
+                                    <button class="btn btn-outline-secondary bg-white" type="button" (click)="list()">
+                                        <i class="material-icons">&#xE8B6;</i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Crear
+                Empleado</button>
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Salario</th>
+                        <th>Edad</th>
+                        <th>Imagen</th>
+                        <th>Salario Anual</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employe of listEmploye">
+
+                        <td>{{employe.id}}</td>
+                        <td>{{employe.employee_name}}</td>
+                        <td>{{employe.employee_salary}}</td>
+                        <td>{{employe.employee_age}}</td>
+                        <td>{{employe.profile_image}}</td>
+                        <td>pendiente</td>
+                        <td>
+                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                                data-target="#exampleModal" (click)="selectItem(employe)">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm" (click)="deleteEmploye(employe)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 *ngIf="!isUpdate" class="modal-title" id="exampleModalLabel">Crear Empleado</h5>
+                            <h5 *ngIf="isUpdate" class="modal-title" id="exampleModalLabel">Actualizar Empleado</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                (click)="newEmploye()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form [formGroup]="formEmploye">
+                                <div class="form-group" *ngIf="isUpdate">
+                                    <label for="id_empleado_input" class="col-form-label">Id Empleado:</label>
+                                    <input type="text" class="form-control" id="ID_empleado_input" formControlName="id">
+                                </div>
+                                <div class="form-group">
+                                    <label for="nombre_empleado_input" class="col-form-label">Nombre Empleado:</label>
+                                    <input type="text" class="form-control" id="nombre_empleado_input"
+                                        formControlName="employee_name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="salario_empleado_input" class="col-form-label">Salario Empleado:</label>
+                                    <input type="number" min="1100000" max="10000000" class="form-control"
+                                        id="salario_empleado_input" formControlName="employee_salary">
+                                </div>
+                                <div class="form-group">
+                                    <label for="edad_empleado_input" class="col-form-label">Edad Empleado:</label>
+                                    <input type="number" min="18" max="70" class="form-control" id="edad_empleado_input"
+                                        formControlName="employee_age">
+                                </div>
+                                <div class="form-group">
+                                    <label for="foto_empleado_input" class="col-form-label">Foto Empleado:</label>
+                                    <textarea class="form-control" id="foto_empleado_input"
+                                        formControlName="profile_image"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button *ngIf="!isUpdate" type="button" class="btn btn-primary" (click)="save()">Guardar
+                                Empleado</button>
+                            <button *ngIf="isUpdate" type="button" class="btn btn-primary"
+                                (click)="updateEmploye()">Actualizar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

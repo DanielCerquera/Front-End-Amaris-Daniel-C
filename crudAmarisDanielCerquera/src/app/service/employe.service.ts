@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse  } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EmployeModel } from '../model/employe_model';
-import { map } from 'rxjs/operators';
+import { map, catchError} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { throwError } from 'rxjs';
 
 
 
@@ -18,12 +19,29 @@ export class EmployeService {
 
   }
 
-  getEmployees(userId?: number) {
-    if (userId) {
-      return this.httpClient.get<EmployeModel[]>(this.URL_API + "/" + userId).pipe(map(res => res));
-    } else {
-      return this.httpClient.get<EmployeModel[]>(this.URL_API).pipe(map(res => res));
-    }
+  getEmployees() {
+    return this.httpClient.get<EmployeModel[]>(this.URL_API).pipe(map(res => res));
+  }
+
+  getEmployeById(userId?: number) {
+    return this.httpClient.get<EmployeModel[]>(this.URL_API + "/" + userId).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 500) {
+          // Si el ID no existe, obtener todos los usuarios en su lugar
+          return this.getEmployees();
+        }
+        return throwError(error);
+      })
+    );
+
+    /*return this.httpClient.get<EmployeModel[]>(this.URL_API + "/" + userId).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          // Si el ID no existe, obtener todos los usuarios en su lugar
+          return this.getEmployees();
+        }
+        return throwError(error);
+    );*/
   }
 
   createtEmploye(request: any): Observable<any> {

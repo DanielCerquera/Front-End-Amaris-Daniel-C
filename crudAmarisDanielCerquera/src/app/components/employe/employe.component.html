@@ -10,9 +10,9 @@
 
                         <div class="search-box">
                             <div class="input-group">
-                                <input class="form-control border-end-0 border" type="search" value="Consultar por ID" id="search-input" formControlName="idFind">
+                                <input class="form-control border-end-0 border" type="search" value="Consultar por ID" placeholder="Consultar por ID" id="search-input" formControlName="idFind">
                                 <span class="input-group-append">
-                                    <button class="btn btn-outline-secondary bg-white" type="button" (click)="list()">
+                                    <button class="btn btn-outline-secondary bg-white" type="button" (click)="listById()">
                                         <i class="material-icons">&#xE8B6;</i>
                                     </button>
                                 </span>
@@ -100,10 +100,10 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button *ngIf="!isUpdate" type="button" class="btn btn-primary" (click)="save()">Guardar
+                            <button *ngIf="!isUpdate" type="button" class="btn btn-primary" (click)="save()" data-dismiss="modal" >Guardar
                                 Empleado</button>
                             <button *ngIf="isUpdate" type="button" class="btn btn-primary"
-                                (click)="updateEmploye()">Actualizar</button>
+                                (click)="updateEmploye()" data-dismiss="modal">Actualizar</button>
                         </div>
                     </div>
                 </div>

@@ -35,12 +35,42 @@ export class EmployeComponent implements OnInit {
     this.formEmployeId = new FormGroup({
       idFind: new FormControl('')
     });
+
   }
 
   list() {
-    this.employeService.getEmployees(this.formEmployeId.value.idFind).subscribe((data: any) => {
+
+    this.employeService.getEmployees().subscribe((data: any) => {
       this.listEmploye = Array.isArray(data) ? data : [data];
     });
+
+    /*this.employeService.getEmployeById(this.formEmployeId.value.idFind).subscribe((data: any) => {
+      this.listEmploye = data;
+    });*/
+
+
+    /*if (this.formEmployeId.value.idFind) {
+      this.employeService.getEmployeById(this.formEmployeId.value.idFind).subscribe((data: any) => {
+        this.listEmploye = [data];
+      });
+    } else {
+      this.employeService.getEmployees().subscribe((data: any) => {
+        this.listEmploye = data;
+      });
+    }*/
+
+  }
+
+
+  listById() {
+
+    if(this.formEmployeId.value.idFind != null && this.formEmployeId.value.idFind != ""){
+      this.employeService.getEmployeById(this.formEmployeId.value.idFind).subscribe((data: any) => {
+        this.listEmploye = Array.isArray(data) ? data : [data];
+      })
+    }else{
+      this.list();
+    }
 
   }
 
@@ -69,15 +99,6 @@ export class EmployeComponent implements OnInit {
         respose => this.listEmploye = respose
       )
     );
-  }
-
-  delete(id: any) {
-    this.employeService.deleteEmploye(id).subscribe(res => {
-      if (res) {
-
-        this.list();
-      }
-    });
   }
 
   newEmploye() {

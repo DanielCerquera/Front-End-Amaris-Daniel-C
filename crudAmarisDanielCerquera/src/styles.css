@@ -45,8 +45,8 @@ body {
 
 .search-box i {
     color: #a0a5b1;
-    position: absolute;
-    font-size: 19px;
+    position: initial;
+    font-size: 20px;
     top: 8px;
     left: 10px;
 }
@@ -139,4 +139,31 @@ table.table td i {
     float: left;
     margin-top: 6px;
     font-size: 95%;
+}
+input#search-input {
+    height: 41px;
+}
+
+button.btn.btn-primary {
+    margin: 10px 0px 10px 0px;
+}
+.col-form-label {
+    font-weight: bold;
+}
+h5 h2{
+    font-weight: bold;
+}
+
+table{
+    table-layout: fixed;
+    width: 250px;
+}
+
+th, td {
+    width: 100px;
+    word-wrap: break-word;
+    text-align: center;
+}
+button.btn.btn-warning.btn-sm {
+    margin: 15px;
 }

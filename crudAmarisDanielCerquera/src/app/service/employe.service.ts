@@ -27,21 +27,13 @@ export class EmployeService {
     return this.httpClient.get<EmployeModel[]>(this.URL_API + "/" + userId).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 500) {
-          // Si el ID no existe, obtener todos los usuarios en su lugar
           return this.getEmployees();
         }
         return throwError(error);
       })
+      
     );
 
-    /*return this.httpClient.get<EmployeModel[]>(this.URL_API + "/" + userId).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 404) {
-          // Si el ID no existe, obtener todos los usuarios en su lugar
-          return this.getEmployees();
-        }
-        return throwError(error);
-    );*/
   }
 
   createtEmploye(request: any): Observable<any> {

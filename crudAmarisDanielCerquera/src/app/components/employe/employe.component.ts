@@ -29,6 +29,7 @@ export class EmployeComponent implements OnInit {
       employee_salary: new FormControl(''),
       employee_age: new FormControl(''),
       profile_image: new FormControl(''),
+      employee_anual_salary: new FormControl(''),
       status: new FormControl('1')
     });
 
@@ -44,21 +45,6 @@ export class EmployeComponent implements OnInit {
       this.listEmploye = Array.isArray(data) ? data : [data];
     });
 
-    /*this.employeService.getEmployeById(this.formEmployeId.value.idFind).subscribe((data: any) => {
-      this.listEmploye = data;
-    });*/
-
-
-    /*if (this.formEmployeId.value.idFind) {
-      this.employeService.getEmployeById(this.formEmployeId.value.idFind).subscribe((data: any) => {
-        this.listEmploye = [data];
-      });
-    } else {
-      this.employeService.getEmployees().subscribe((data: any) => {
-        this.listEmploye = data;
-      });
-    }*/
-
   }
 
 
@@ -73,11 +59,20 @@ export class EmployeComponent implements OnInit {
     }
 
   }
+  listByIdAnual(id: number) {
+
+      this.employeService.getEmployeById(id).subscribe((data: any) => {
+        this.listEmploye = Array.isArray(data) ? data : [data];
+      })
+
+
+  }
 
   save() {
     this.formEmploye.controls['status'].setValue('1');
     this.employeService.createtEmploye(this.formEmploye.value).subscribe(resp => {
       if (resp) {
+        this.listByIdAnual(resp.id);
         this.list();
         this.formEmploye.reset();
       }
